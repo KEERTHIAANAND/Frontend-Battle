@@ -1,5 +1,7 @@
-import PricingSection from "@/components/pricing/PricingSection";
 import FeaturesSection from "@/components/features/FeaturesSection";
+import PlatformGrowth from "@/components/growth/PlatformGrowth";
+import PricingSection from "@/components/pricing/PricingSection";
+import FaqSection from "@/components/faq/FaqSection";
 import Testimonials from "@/components/social-proof/Testimonials";
 
 /* ── Deterministic particles (no Math.random — SSR safe) ── */
@@ -59,10 +61,10 @@ export default function Home() {
 
 
         {/* ── Hero content grid ── */}
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-36 grid grid-cols-1 lg:grid-cols-[45%_55%] gap-12 lg:gap-8 items-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-36 grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 lg:gap-8 items-center">
 
           {/* LEFT — Text content */}
-          <div>
+          <div className="pr-0 md:pr-4">
             {/* Badge */}
             <p
               className="hero-entry inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 text-sm font-body"
@@ -116,108 +118,74 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT — Animated SVG data flow / Terminal graphic */}
+          {/* RIGHT — Creative Glassmorphism Pipeline Visualizer */}
           <div
-            className="hero-entry svg-float hidden sm:flex items-center justify-center lg:justify-end"
-            style={{ "--delay": "150ms", "--float-delay": "0ms" } as React.CSSProperties}
+            className="hero-entry hidden sm:flex flex-col items-center justify-center lg:items-end relative w-full h-[450px]"
+            style={{ "--delay": "150ms" } as React.CSSProperties}
           >
-            <svg
-              viewBox="0 0 500 450"
-              className="w-full max-w-md lg:max-w-lg h-auto"
-              aria-label="Abstract data flow network visualization"
-              role="img"
-            >
-              <defs>
-                <filter id="node-glow">
-                  <feGaussianBlur stdDeviation="8" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter id="soft-glow">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
+            {/* Background ambient glow specific to the visualizer */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-mystic-mint/10 blur-[80px] rounded-full pointer-events-none" />
 
-              {/* ── Connection lines ── */}
-              <g stroke="rgba(217,232,226,0.12)" strokeWidth="1.5" fill="none">
-                <path d="M130 95 Q190 170 255 215" className="line-flow" />
-                <path d="M385 75 Q320 145 255 215" className="line-flow" style={{ animationDelay: "1s" }} />
-                <path d="M85 255 Q170 235 255 215" className="line-flow" style={{ animationDelay: "2s" }} />
-                <path d="M255 215 Q340 225 420 205" className="line-flow" style={{ animationDelay: "0.5s" }} />
-                <path d="M255 215 Q200 305 145 370" className="line-flow" style={{ animationDelay: "1.5s" }} />
-                <path d="M255 215 Q310 305 365 370" className="line-flow" style={{ animationDelay: "2.5s" }} />
-                <path d="M420 205 Q395 290 365 370" stroke="rgba(255,200,1,0.12)" className="line-flow" style={{ animationDelay: "3s" }} />
-                <path d="M145 370 Q250 410 255 415" className="line-flow" style={{ animationDelay: "3.5s" }} />
-                <path d="M365 370 Q310 400 255 415" className="line-flow" style={{ animationDelay: "4s" }} />
-              </g>
+            <div className="relative w-full max-w-md flex flex-col gap-8">
+              
+              {/* Card 1: Data Source */}
+              <div className="relative z-10 self-start w-[280px] bg-oceanic-noir/80 backdrop-blur-md border border-mystic-mint/20 rounded-2xl p-4 shadow-2xl flex items-center gap-4 transform transition-transform hover:-translate-y-1" style={{ animation: "float-subtle 6s ease-in-out infinite" }}>
+                <div className="w-10 h-10 rounded-lg bg-arctic/5 flex items-center justify-center text-arctic">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>
+                </div>
+                <div>
+                  <div className="text-xs font-display text-mystic-mint font-semibold mb-1">DATA SOURCE</div>
+                  <div className="text-sm font-body text-arctic/90">PostgreSQL Cluster</div>
+                </div>
+                {/* Active Indicator */}
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-mystic-mint animate-pulse" />
+              </div>
 
-              {/* ── Source nodes (top) ── */}
-              {/* Database */}
-              <g className="node-pulse" style={{ "--pulse-delay": "0ms" } as React.CSSProperties}>
-                <circle cx="130" cy="95" r="22" fill="#114C5A" stroke="rgba(217,232,226,0.25)" strokeWidth="1" />
-                <rect x="121" y="86" width="18" height="14" rx="2" fill="none" stroke="#D9E8E2" strokeWidth="1.2" opacity="0.6" />
-                <line x1="123" y1="92" x2="137" y2="92" stroke="#D9E8E2" strokeWidth="0.8" opacity="0.4" />
-                <line x1="123" y1="96" x2="137" y2="96" stroke="#D9E8E2" strokeWidth="0.8" opacity="0.4" />
-              </g>
+              {/* Connecting Line 1 */}
+              <svg className="absolute left-[140px] top-[72px] w-[120px] h-[72px] pointer-events-none" preserveAspectRatio="none" style={{ zIndex: 0 }}>
+                <path d="M0,0 C0,36 120,36 120,72" fill="none" stroke="rgba(255,200,1,0.2)" strokeWidth="2" strokeDasharray="4 4" className="line-flow" />
+                <circle cx="0" cy="0" r="4" fill="#FFC801">
+                  <animateMotion dur="2s" repeatCount="indefinite" path="M0,0 C0,36 120,36 120,72" />
+                </circle>
+              </svg>
 
-              {/* Cloud API */}
-              <g className="node-pulse" style={{ "--pulse-delay": "400ms" } as React.CSSProperties}>
-                <circle cx="385" cy="75" r="20" fill="#114C5A" stroke="rgba(217,232,226,0.25)" strokeWidth="1" />
-                <text x="385" y="80" textAnchor="middle" fill="#D9E8E2" fontSize="14" fontFamily="var(--font-display)" opacity="0.6">{ "{}" }</text>
-              </g>
+              {/* Card 2: AI Engine */}
+              <div className="relative z-10 self-end w-[280px] bg-forsythia/10 backdrop-blur-md border border-forsythia/30 rounded-2xl p-4 shadow-[0_0_40px_-10px_rgba(255,200,1,0.3)] flex items-center gap-4 transform transition-transform hover:-translate-y-1" style={{ animation: "float-subtle 6s ease-in-out infinite 1s" }}>
+                <div className="w-10 h-10 rounded-lg bg-forsythia/20 flex items-center justify-center text-forsythia">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <div>
+                  <div className="text-xs font-display text-forsythia font-semibold mb-1">AI ENGINE</div>
+                  <div className="text-sm font-body text-arctic/90">Schema Auto-Map</div>
+                </div>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1">
+                  <div className="w-1 h-3 bg-forsythia rounded-full animate-pulse" style={{ animationDelay: "0ms" }} />
+                  <div className="w-1 h-3 bg-forsythia rounded-full animate-pulse" style={{ animationDelay: "150ms" }} />
+                  <div className="w-1 h-3 bg-forsythia rounded-full animate-pulse" style={{ animationDelay: "300ms" }} />
+                </div>
+              </div>
 
-              {/* File source */}
-              <g className="node-pulse" style={{ "--pulse-delay": "800ms" } as React.CSSProperties}>
-                <circle cx="85" cy="255" r="18" fill="#114C5A" stroke="rgba(217,232,226,0.25)" strokeWidth="1" />
-                <path d="M77 249 L77 263 L93 263 L93 253 L89 249 Z" fill="none" stroke="#D9E8E2" strokeWidth="1" opacity="0.6" />
-              </g>
+              {/* Connecting Line 2 */}
+              <svg className="absolute right-[140px] top-[188px] w-[120px] h-[72px] pointer-events-none" preserveAspectRatio="none" style={{ zIndex: 0 }}>
+                <path d="M120,0 C120,36 0,36 0,72" fill="none" stroke="rgba(217,232,226,0.2)" strokeWidth="2" strokeDasharray="4 4" className="line-flow" />
+                <circle cx="0" cy="0" r="4" fill="#D9E8E2">
+                  <animateMotion dur="2s" repeatCount="indefinite" path="M120,0 C120,36 0,36 0,72" />
+                </circle>
+              </svg>
 
-              {/* ── Central DataPulse hub ── */}
-              <circle cx="255" cy="215" r="38" fill="rgba(255,200,1,0.08)" filter="url(#node-glow)" />
-              <circle cx="255" cy="215" r="28" fill="#FFC801" className="node-pulse" style={{ "--pulse-delay": "200ms" } as React.CSSProperties} />
-              <circle cx="255" cy="215" r="20" fill="#172B36" />
-              <text x="255" y="220" textAnchor="middle" fill="#FFC801" fontSize="13" fontWeight="700" fontFamily="var(--font-display)">DP</text>
+              {/* Card 3: Destination */}
+              <div className="relative z-10 self-start w-[280px] bg-oceanic-noir/80 backdrop-blur-md border border-mystic-mint/20 rounded-2xl p-4 shadow-2xl flex items-center gap-4 transform transition-transform hover:-translate-y-1" style={{ animation: "float-subtle 6s ease-in-out infinite 2s" }}>
+                <div className="w-10 h-10 rounded-lg bg-arctic/5 flex items-center justify-center text-arctic">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                </div>
+                <div>
+                  <div className="text-xs font-display text-mystic-mint font-semibold mb-1">DESTINATION</div>
+                  <div className="text-sm font-body text-arctic/90">Snowflake Data Warehouse</div>
+                </div>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-mystic-mint/30 border-t-mystic-mint animate-spin" />
+              </div>
 
-              {/* ── Transform node (right) ── */}
-              <g className="node-pulse" style={{ "--pulse-delay": "600ms" } as React.CSSProperties}>
-                <circle cx="420" cy="205" r="18" fill="#114C5A" stroke="#FFC801" strokeWidth="1" strokeDasharray="4 3" />
-                <path d="M413 205 L418 200 L423 205 L418 210 Z" fill="none" stroke="#FFC801" strokeWidth="1.2" opacity="0.7" />
-                <path d="M418 200 L418 210" stroke="#FFC801" strokeWidth="0.8" opacity="0.5" />
-              </g>
-
-              {/* ── Output nodes (bottom) ── */}
-              {/* Dashboard */}
-              <g className="node-pulse" style={{ "--pulse-delay": "1000ms" } as React.CSSProperties}>
-                <circle cx="145" cy="370" r="20" fill="#114C5A" stroke="rgba(217,232,226,0.25)" strokeWidth="1" />
-                <rect x="136" y="362" width="18" height="12" rx="1.5" fill="none" stroke="#D9E8E2" strokeWidth="1" opacity="0.6" />
-                <line x1="145" y1="374" x2="145" y2="378" stroke="#D9E8E2" strokeWidth="1" opacity="0.4" />
-              </g>
-
-              {/* Webhook */}
-              <g className="node-pulse" style={{ "--pulse-delay": "1200ms" } as React.CSSProperties}>
-                <circle cx="365" cy="370" r="20" fill="#114C5A" stroke="rgba(255,200,1,0.3)" strokeWidth="1" />
-                <path d="M358 370 L365 363 L372 370 L365 377 Z" fill="none" stroke="#FFC801" strokeWidth="1" opacity="0.5" />
-              </g>
-
-              {/* Final output */}
-              <g className="node-pulse" style={{ "--pulse-delay": "1400ms" } as React.CSSProperties}>
-                <circle cx="255" cy="415" r="15" fill="#114C5A" stroke="rgba(255,200,1,0.2)" strokeWidth="1" filter="url(#soft-glow)" />
-                <circle cx="255" cy="415" r="5" fill="#FFC801" opacity="0.5" />
-              </g>
-
-              {/* ── Decorative orbit dots ── */}
-              <circle cx="190" cy="150" r="2" fill="#FFC801" opacity="0.3" className="node-pulse" style={{ "--pulse-delay": "300ms" } as React.CSSProperties} />
-              <circle cx="330" cy="140" r="2.5" fill="#D9E8E2" opacity="0.2" className="node-pulse" style={{ "--pulse-delay": "700ms" } as React.CSSProperties} />
-              <circle cx="170" cy="310" r="2" fill="#FFC801" opacity="0.25" className="node-pulse" style={{ "--pulse-delay": "1100ms" } as React.CSSProperties} />
-              <circle cx="340" cy="290" r="2" fill="#D9E8E2" opacity="0.2" className="node-pulse" style={{ "--pulse-delay": "500ms" } as React.CSSProperties} />
-              <circle cx="460" cy="150" r="1.5" fill="#FFC801" opacity="0.2" className="node-pulse" style={{ "--pulse-delay": "900ms" } as React.CSSProperties} />
-            </svg>
+            </div>
           </div>
         </div>
       </section>
@@ -228,9 +196,19 @@ export default function Home() {
       <FeaturesSection />
 
       {/* ═══════════════════════════════════════════════════
+          PLATFORM GROWTH
+          ═══════════════════════════════════════════════════ */}
+      <PlatformGrowth />
+
+      {/* ═══════════════════════════════════════════════════
           PRICING
           ═══════════════════════════════════════════════════ */}
       <PricingSection />
+
+      {/* ═══════════════════════════════════════════════════
+          FAQ
+          ═══════════════════════════════════════════════════ */}
+      <FaqSection />
 
       {/* ═══════════════════════════════════════════════════
           TESTIMONIALS & STATS
