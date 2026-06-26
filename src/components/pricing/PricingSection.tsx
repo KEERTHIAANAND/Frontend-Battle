@@ -34,9 +34,9 @@ function PricingSectionComponent() {
         <PricingControls />
 
         {/* ── Tier Cards Grid ── */}
-        <div className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory grid-cols-1 md:grid-cols-3 gap-6 pb-6 md:pb-0 items-start [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {tiers.map((tier) => (
-            <div key={tier.id} className="min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center">
+            <div key={tier.id} className="w-full">
               <PriceTierCard
                 tier={tier}
                 initialPrice={getPrice(tier.id, "INR", "monthly")}
