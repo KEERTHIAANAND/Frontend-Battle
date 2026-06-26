@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────
+   DataPulse — CSS Custom Properties (Design Tokens)
+   ──────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Brand Colors ── */
+  --forsythia: #FFC801;
+  --nocturnal: #114C5A;
+  --arctic: #F1F6F4;
+  --mystic-mint: #D9E8E2;
+  --deep-saffron: #FF9932;
+  --oceanic-noir: #172B36;
+
+  /* ── Font Families (values injected by next/font in layout.tsx) ── */
+  --font-display: var(--font-jetbrains);
+  --font-body: var(--font-inter);
+
+  /* ── Spacing Scale ── */
+  --space-1: 0.25rem;   /*  4px */
+  --space-2: 0.5rem;    /*  8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* ── Border Radius ── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ── Transitions ── */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* ── Fluid Typography ── */
+  --text-hero: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+  --text-section: clamp(2rem, 5vw + 0.5rem, 3.5rem);
+}
+
+/* ────────────────────────────────────────────────────────
+   Tailwind v4 Theme — Custom Design Tokens
+   Maps CSS custom properties → Tailwind utility classes
+   e.g.  bg-forsythia, text-nocturnal, font-display, etc.
+   ──────────────────────────────────────────────────────── */
+
+@theme inline {
+  /* Colors */
+  --color-forsythia: var(--forsythia);
+  --color-nocturnal: var(--nocturnal);
+  --color-arctic: var(--arctic);
+  --color-mystic-mint: var(--mystic-mint);
+  --color-deep-saffron: var(--deep-saffron);
+  --color-oceanic-noir: var(--oceanic-noir);
+
+  /* Font families → font-display, font-body */
+  --font-display: var(--font-jetbrains);
+  --font-body: var(--font-inter);
+}
+
+/* ────────────────────────────────────────────────────────
+   Base Styles
+   ──────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--arctic);
+  color: var(--oceanic-noir);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), ui-monospace, monospace;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-display), ui-monospace, monospace;
+}
+
+/* ────────────────────────────────────────────────────────
+   Selection
+   ──────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--forsythia);
+  color: var(--oceanic-noir);
+}
+
+/* ────────────────────────────────────────────────────────
+   Focus Ring — accessible, on-brand
+   ──────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--forsythia);
+  outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────────────────
+   Hero Animations
+   ──────────────────────────────────────────────────────── */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-node {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes dash-flow {
+  to { stroke-dashoffset: -60; }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Entry animation utility — set --delay via inline style */
+.hero-entry {
+  opacity: 0;
+  animation: fade-in-up 400ms var(--ease-smooth) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.cursor-blink {
+  animation: blink-cursor 700ms steps(1, end) infinite;
+}
+
+.node-pulse {
+  animation: pulse-node 2s ease-in-out infinite;
+  animation-delay: var(--pulse-delay, 0ms);
+}
+
+.line-flow {
+  stroke-dasharray: 8 4;
+  animation: dash-flow 8s linear infinite;
+}
+
+.svg-float {
+  animation: float-subtle 6s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0ms);
+}
+
+/* ────────────────────────────────────────────────────────
+   Motion & Micro-interactions
+   ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* 1. CTA Button */
+  .btn-cta {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 200ms cubic-bezier(0.16, 1, 0.3, 1), transform 100ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-cta:active {
+    transform: scale(0.97);
+  }
+  
+  .btn-cta::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateX(-200%) skewX(-20deg);
+  }
+  
+  .btn-cta:active::after {
+    animation: shimmer-sweep 400ms ease-out forwards;
+  }
+  
+  @keyframes shimmer-sweep {
+    100% { transform: translateX(300%) skewX(-20deg); }
+  }
+
+  /* 2. Nav links */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--forsythia);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  /* 3. Pricing Cards */
+  .pricing-glow {
+    transition: box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pricing-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 200, 1, 0.15);
+  }
+  
+  .pricing-pulse {
+    animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 200, 1, 0.1); }
+    50% { box-shadow: 0 0 40px rgba(255, 200, 1, 0.3); }
+  }
+
+  /* 5. Input focus states */
+  .input-focus {
+    transition: border-color 150ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .input-focus:focus {
+    outline: none !important;
+    border-color: var(--forsythia);
+    box-shadow: 0 0 0 2px rgba(255, 200, 1, 0.3) !important;
+  }
+
+  /* 6. Scroll-triggered reveals */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: opacity, transform;
+  }
+  .reveal-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
