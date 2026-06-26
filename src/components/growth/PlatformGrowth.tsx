@@ -6,6 +6,7 @@ export default function PlatformGrowth() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Intersection Observer for drawing the initial graph
     const container = containerRef.current;
     if (!container) return;
 
@@ -23,7 +24,21 @@ export default function PlatformGrowth() {
     const paths = container.querySelectorAll(".growth-path");
     paths.forEach((path) => observer.observe(path));
 
-    return () => observer.disconnect();
+    // Zero-render Live Telemetry Counter
+    const counterNode = document.getElementById("live-events-counter");
+    let currentCount = 145203;
+    const interval = setInterval(() => {
+      if (counterNode) {
+        // Randomly increment by 10 to 60 events every 80ms
+        currentCount += Math.floor(Math.random() * 50) + 10;
+        counterNode.textContent = currentCount.toLocaleString();
+      }
+    }, 80);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -69,12 +84,24 @@ export default function PlatformGrowth() {
 
         {/* RIGHT: Animated Growth Graph */}
         <div className="relative h-[400px] w-full rounded-2xl border border-mystic-mint/20 bg-oceanic-noir p-6 flex flex-col justify-end overflow-hidden" ref={containerRef}>
-          {/* Grid lines */}
-          <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(217,232,226,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(217,232,226,0.05) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+          {/* Animated Panning Grid lines */}
+          <div 
+            className="absolute inset-0 animate-grid-pan" 
+            style={{ 
+              backgroundImage: "linear-gradient(rgba(217,232,226,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(217,232,226,0.05) 1px, transparent 1px)", 
+              backgroundSize: "40px 40px" 
+            }} 
+          />
           
-          {/* Graph labels */}
-          <div className="absolute top-6 left-6 text-xs font-display text-mystic-mint/50">Events / Sec</div>
-          <div className="absolute bottom-6 right-6 text-xs font-display text-mystic-mint/50">Time</div>
+          {/* Live Telemetry Data */}
+          <div className="absolute top-6 left-6 flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-mystic-mint animate-pulse" />
+            <div className="text-xs font-display text-mystic-mint/50">Events / Sec</div>
+          </div>
+          <div className="absolute top-10 left-6 text-2xl font-display font-bold text-arctic tracking-tight" id="live-events-counter">
+            145,203
+          </div>
+          <div className="absolute bottom-6 right-6 text-xs font-display text-mystic-mint/50">Time (Real-time)</div>
 
           {/* Animated Graph SVG */}
           <svg className="absolute bottom-0 left-0 w-full h-[80%] overflow-visible" preserveAspectRatio="none" viewBox="0 0 500 250">
@@ -108,11 +135,24 @@ export default function PlatformGrowth() {
               style={{ strokeDasharray: "1000", strokeDashoffset: "1000" }}
             />
             
-            {/* Pulsing Nodes on the line */}
+            {/* Live Data Packets Flowing Along Path */}
+            <g className="growth-path opacity-0 transition-opacity duration-500 delay-[1200ms]">
+              <circle r="3" fill="#D9E8E2">
+                <animateMotion dur="3s" repeatCount="indefinite" path="M0,220 C100,220 150,180 200,160 C250,140 300,170 350,100 C400,30 450,40 500,20" />
+              </circle>
+              <circle r="2.5" fill="#FFC801">
+                <animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M0,220 C100,220 150,180 200,160 C250,140 300,170 350,100 C400,30 450,40 500,20" />
+              </circle>
+              <circle r="3" fill="#D9E8E2">
+                <animateMotion dur="3s" begin="2s" repeatCount="indefinite" path="M0,220 C100,220 150,180 200,160 C250,140 300,170 350,100 C400,30 450,40 500,20" />
+              </circle>
+            </g>
+
+            {/* Fixed Pulsing Nodes on the line */}
             <g className="growth-path opacity-0 transition-opacity duration-500 delay-[1200ms]">
               <circle cx="200" cy="160" r="4" fill="#114C5A" stroke="#FFC801" strokeWidth="2" className="node-pulse" style={{ "--pulse-delay": "0ms" } as React.CSSProperties} />
               <circle cx="350" cy="100" r="5" fill="#FFC801" className="node-pulse" style={{ "--pulse-delay": "400ms" } as React.CSSProperties} />
-              <circle cx="500" cy="20" r="6" fill="#FFC801" filter="url(#soft-glow)" className="node-pulse" style={{ "--pulse-delay": "800ms" } as React.CSSProperties} />
+              <circle cx="500" cy="20" r="6" fill="#FFC801" className="node-pulse" style={{ "--pulse-delay": "800ms" } as React.CSSProperties} />
             </g>
           </svg>
         </div>
@@ -128,6 +168,13 @@ export default function PlatformGrowth() {
         }
         @keyframes draw-line {
           to { stroke-dashoffset: 0; }
+        }
+        .animate-grid-pan {
+          animation: grid-pan 2s linear infinite;
+        }
+        @keyframes grid-pan {
+          from { background-position: 0px 0px; }
+          to { background-position: -40px 0px; }
         }
       `}</style>
     </section>
