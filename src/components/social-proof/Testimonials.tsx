@@ -53,11 +53,6 @@ export default function Testimonials() {
 
   return (
     <section id="social-proof" aria-labelledby="social-proof-heading" className="reveal-up bg-arctic">
-      {/* ── LOGO MARQUEE ── */}
-      <LogoMarquee />
-
-      {/* ── STATS BAR ── */}
-      <StatsBar />
 
       {/* ── TESTIMONIALS GRID ── */}
       <div className="py-24 px-6 max-w-6xl mx-auto overflow-hidden">

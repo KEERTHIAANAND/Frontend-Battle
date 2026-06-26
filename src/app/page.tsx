@@ -3,6 +3,8 @@ import PlatformGrowth from "@/components/growth/PlatformGrowth";
 import PricingSection from "@/components/pricing/PricingSection";
 import FaqSection from "@/components/faq/FaqSection";
 import Testimonials from "@/components/social-proof/Testimonials";
+import LogoMarquee from "@/components/social-proof/LogoMarquee";
+import StatsBar from "@/components/social-proof/StatsBar";
 
 /* ── Deterministic particles (no Math.random — SSR safe) ── */
 const PARTICLES = Array.from({ length: 50 }, (_, i) => ({
@@ -175,6 +177,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════
+          SOCIAL PROOF (LOGOS & STATS)
+          ═══════════════════════════════════════════════════ */}
+      <section className="bg-arctic">
+        <LogoMarquee />
+        <StatsBar />
       </section>
 
       {/* ═══════════════════════════════════════════════════
