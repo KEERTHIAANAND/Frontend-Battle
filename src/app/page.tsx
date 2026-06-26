@@ -29,7 +29,7 @@ export default function Home() {
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="relative min-h-screen overflow-hidden bg-oceanic-noir"
+        className="relative overflow-hidden bg-oceanic-noir pt-2 pb-16 md:pt-6 md:pb-24"
       >
         {/* ── Particle background ── */}
         <svg
@@ -61,23 +61,10 @@ export default function Home() {
 
 
         {/* ── Hero content grid ── */}
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-36 grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 lg:gap-8 items-center">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 lg:gap-8 items-center">
 
           {/* LEFT — Text content */}
           <div className="pr-0 md:pr-4">
-            {/* Badge */}
-            <p
-              className="hero-entry inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 text-sm font-body"
-              style={{
-                "--delay": "60ms",
-                background: "#172B36",
-                borderColor: "rgba(217,232,226,0.25)",
-              } as React.CSSProperties}
-            >
-              <span className="font-bold text-forsythia tracking-wider text-xs uppercase">New</span>
-              <span className="text-arctic/80">Latest integration just arrived</span>
-            </p>
-
             {/* Headline */}
             <h1 id="hero-heading" className="font-display font-bold tracking-tighter leading-[1.05]">
               <span
